@@ -1,0 +1,11 @@
+/* 
+ * CONTROL
+ */
+
+/*Component*/
+.control { 
+    display: flex;
+    flex-wrap: nowrap;
+    flex-grow: 1;
+    justify-content: center;
+}

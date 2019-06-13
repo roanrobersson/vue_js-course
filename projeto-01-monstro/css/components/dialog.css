@@ -1,0 +1,26 @@
+/* 
+ * DIALOG
+ */
+
+ /*Component*/
+ .dialog {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+ }
+
+/*Element*/
+.dialog__alert{
+font-size: 20px;
+font-weight: bold;
+}
+
+/*Modifier*/
+.dialog__alert--victory{
+    color: #008000;
+}
+
+/*Modifier*/
+.dialog__alert--defeat{
+    color: #ff0000;
+}

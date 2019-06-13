@@ -1,0 +1,22 @@
+/* 
+ * LOG
+ */
+
+/*Component*/
+.log {
+    font-weight: bold;
+    color: white;
+    font-size: 20px;
+    flex-grow: 1;
+    max-height: 50vh;
+    overflow-y: scroll;
+}
+
+/*Element*/
+.log__item {
+    border-radius: 5px;
+    margin: 5px 0;
+    padding: 2px;
+    text-align: center;
+    background-color: gray;
+}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Matador de monstros</title>
+        <link rel="stylesheet" href="css/fonts.css">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/components/*">
+        <link rel="stylesheet" href="css/components/panel.css">
+        <link rel="stylesheet" href="css/components/control.css">
+        <link rel="stylesheet" href="css/components/dialog.css">
+        <link rel="stylesheet" href="css/components/log.css">
+        <link rel="stylesheet" href="css/components/status.css">
+        <link rel="stylesheet" href="css/components/progress-bar.css">
+        <link rel="stylesheet" href="css/components/button.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        <div id="app">
+
+            <!-- Panel status -->
+            <div class="panel">
+                <div class="status">
+                    <h1 class="status__name">{{ player.name }}</h1>
+                    <div class="progress-bar">
+                        <div class="progress-bar__progress" :style="{ width: playerHpPercent }" :class="{ 'progress-bar__progress--green': player.hp > 10, 'progress-bar__progress--red': player.hp < 11 }"></div>
+                    </div>
+                    <div class="status__hp-percent">{{ player.hp}} / {{ player.maxHp}}</div>
+                </div>
+                <div class="status">
+                    <h1 class="status__name">{{ monster.name }}</h1>
+                    <div class="progress-bar">
+                        <div class="progress-bar__progress" :style="{ width: monsterHpPercent }" :class="{ 'progress-bar__progress--green': monster.hp > 10, 'progress-bar__progress--red': monster.hp < 11 }"></div>
+                    </div>
+                    <div class="status__hp-percent">{{ monster.hp}} / {{ monster.maxHp}}</div>
+                </div>
+            </div>
+
+            <!-- Panel dialog -->
+            <div class="panel" v-if="dialog!=null">
+                <div class="dialog">
+                    <div class="dialog__alert dialog__alert--victory">{{ dialog }}</div>
+                </div>
+            </div>
+
+            <!-- Panel control -->
+            <div class="panel">
+                <div class="control">
+                        <template v-if="gameRunning">
+                            <button class="button button--attack" @click="attack( $event, player )">Atacar</button>
+                            <button class="button button--special-attack" @click="specialAttack( $event, player )">Ataque especial</button>
+                            <button class="button button--heal" @click="heal( $event, player )"></i>Curar</button>
+                            <button class="button button--quit" @click="quit">Desistir</button>
+                        </template>  
+                        <button class="button button--start" @click="start" v-else>Iniciar jogo</button>  
+                </div>
+            </div>
+
+            <!-- Panel log -->
+            <div class="panel" v-if="log.length > 0">
+                <div class="log">
+                    <div class="log__item log__item--player" v-for="item in log.slice().reverse()" :style="{backgroundColor: item.color}">{{ item.message }}</div>
+                </div>
+            </div>
+
+        </div>    
+    </body>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="js/app.js"></script>
+</html>
