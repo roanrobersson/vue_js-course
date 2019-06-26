@@ -13,15 +13,18 @@
     <contador2></contador2>
     <contador2></contador2>
     <contador2></contador2>
+    <hr>
+    <contador-global></contador-global>
 </div>
 
 
 <script>
 
     //Objeto componente
-    const component = {
+    const componentVaca = {
         template: `
             <div>
+                <div>Contador local Vaca</div>
                 <span>{{ contador }}</span>
                 <button @click="contador++">+</button>
                 <button @click="contador--">-</button>
@@ -34,13 +37,31 @@
         },
     };
 
-    //Componente global
-    Vue.component('contador', {
+    //Objeto componente
+    const componentBoi = {
         template: `
             <div>
+                <div>Contador local Boi</div>
                 <span>{{ contador }}</span>
-                <button @click="contador++">+</button>
-                <button @click="contador--">-</button>
+                <button @click="contador+=10">+</button>
+                <button @click="contador-=10">-</button>
+            </div>
+        `,
+        data() {
+            return {
+                contador: 0
+            }
+        },
+    };
+
+    //Componente global
+    Vue.component('contador-global', {
+        template: `
+            <div>
+                <div>ContadorGlobal!!!!!!!</div>
+                <span>{{ contador }}</span>
+                <button @click="contador+=100">+</button>
+                <button @click="contador-=100">-</button>
             </div>
         `,
         data() {
@@ -54,7 +75,7 @@
         el: '#app',
         //Componente local
         components: {
-            contador1: component,
+            contador1: componentVaca,
         },
     });
 
@@ -62,7 +83,7 @@
         el: '#app2',
         //Componente local
         components: {
-            contador2: component,
+            contador2: componentBoi,
         },
     });
 
