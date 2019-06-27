@@ -62,11 +62,11 @@ export default {
 				{src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg'},
 				{src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg'}
 			],
-			components: {
-				'main-footer': MainFooter,
-			},
 
 		}
-	}
+	},
+	components: {
+		'main-footer': MainFooter,
+	},
 }
 </script>

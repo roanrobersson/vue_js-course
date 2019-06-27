@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <v-footer class="pa-3" app>
     <v-spacer></v-spacer>
     <div>Curso Vue &copy; {{ new Date().getFullYear() }}</div>
@@ -7,6 +7,7 @@
 
 <script>
 export default {
+  
 }
 </script>
 
