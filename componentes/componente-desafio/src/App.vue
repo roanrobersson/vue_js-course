@@ -25,21 +25,9 @@
 			</v-list>
 		</v-navigation-drawer>
 
-		<v-toolbar app>
-			<v-toolbar-title class="headline text-uppercase">
-				<span>Desafio</span>
-				<span class="font-weight-light">Componente</span>
-			</v-toolbar-title>
-		</v-toolbar>
+		<toolbar />
 
-		<v-content>
-			<v-carousel>
-				<v-carousel-item
-					v-for="(item,i) in fotos"
-					:key="i"
-					:src="item.src"></v-carousel-item>
-			</v-carousel>
-		</v-content>
+		<carousel />
 
 		<main-footer />
 		
@@ -48,6 +36,8 @@
 
 <script>
 import MainFooter from './components/MainFooter.vue';
+import Carousel from './components/Carousel.vue';
+import Toolbar from './components/Toolbar.vue';
 
 export default {
 	data() {
@@ -56,17 +46,18 @@ export default {
 				{titulo: 'Início', icon: 'dashboard'},
 				{titulo: 'Sobre', icon: 'question_answer'}
 			],
-			fotos: [
-				{src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg'},
-				{src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg'},
-				{src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg'},
-				{src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg'}
-			],
-
 		}
 	},
 	components: {
 		'main-footer': MainFooter,
+		'carousel': Carousel,
+		'toolbar': Toolbar,
 	},
 }
+
+
+
+
+
+
 </script>
