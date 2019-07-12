@@ -8,7 +8,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="usuario in usuarios" :key="usuario.id" @click="itemClick(usuario)">
+                <tr v-for="usuario in usuarios" :key="usuario.id" @click="itemClick(usuario, $event)">
                     <td>{{ usuario.id }}</td>
                     <td>{{ usuario.nome }}</td>
                 </tr>
@@ -20,9 +20,19 @@
 <script>
 export default {
     props: { usuarios: Array },
+    data() {
+        return {
+            trSelected: null,
+        }
+    },
     methods: {
-        itemClick: function(usuario) {
+        itemClick: function(usuario, event) {
             this.$emit('itemClick', {usuario});
+
+            let tr = event.target.parentElement;
+            if (this.trSelected !== null) this.trSelected.style.backgroundColor = 'white';
+            this.trSelected = tr;
+            this.trSelected.style.backgroundColor = "lightBlue";
         },
     }, 
 }
@@ -40,7 +50,6 @@ export default {
         border-collapse: separate;
         border-top: 1px solid #CCC;
     }
-
 
     th, td {
         padding: 15px;
