@@ -1,8 +1,14 @@
 <template>
-    <div class='list' @click="listClick">
-        <table>
-            
-        </table>
+    <div class='list'>
+        <ol>
+            <li class="list-item"
+            v-for="pais in paises" 
+            :key="pais.id"
+            @click="listItemClick"
+            >
+                {{pais.nome}}
+            </li>
+        </ol>
     </div>
 </template>
 
@@ -19,8 +25,8 @@ export default {
         }
     },
     methods: {
-        listClick: function() {
-            console.log(this.paises);
+        listItemClick: function() {
+           
         }
     }
 
@@ -30,10 +36,13 @@ export default {
 
 <style>
 .list {
-
     background-color: lightcoral;
     border: 2px solid black;
+}
+.list-item {
+    list-style-type: none;
+    border: 1px solid black;
+    padding: 0;
 
 }
-
 </style>

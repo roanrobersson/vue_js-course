@@ -1,8 +1,8 @@
 export default [
-    { id: 1, name: 'Brasil' },
-    { id: 2, name: 'Argentina' },
-    { id: 3, name: 'Japão' },
-    { id: 4, name: 'França' },
-    { id: 5, name: 'China' },
-    { id: 6, name: 'Estados Unidos' }
+    { id: 1, nome: 'Brasil' },
+    { id: 2, nome: 'Argentina' },
+    { id: 3, nome: 'Japão' },
+    { id: 4, nome: 'França' },
+    { id: 5, nome: 'China' },
+    { id: 6, nome: 'Estados Unidos' }
 ]
