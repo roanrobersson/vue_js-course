@@ -25,14 +25,15 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .lists-container {
     display: flex;
     justify-content: space-evenly;
 }
 
 .list { 
-    min-height: 300px; 
-    min-width: 200px;
+    min-height: 250px; 
+    min-width: 150px;
+    max-height: 300px;
 }
 </style>

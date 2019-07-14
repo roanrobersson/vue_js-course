@@ -1,32 +1,38 @@
 <template>
-  <div id="app">
-      <localizacao />
-  </div>
+  <v-app>
+    <v-toolbar app>
+      <v-toolbar-title class="headline text-uppercase">
+        <span>Vuetify</span>
+        <span class="font-weight-light">MATERIAL DESIGN</span>
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn
+        flat
+        href="https://github.com/vuetifyjs/vuetify/releases/latest"
+        target="_blank"
+      >
+        <span class="mr-2">Latest Release</span>
+      </v-btn>
+    </v-toolbar>
+
+    <v-content>
+      <HelloWorld/>
+    </v-content>
+  </v-app>
 </template>
 
 <script>
-import localizacao from './views/localizacao.vue';
+import HelloWorld from './components/HelloWorld'
 
 export default {
-  name: 'app',
-  components: {localizacao},
-
+  name: 'App',
+  components: {
+    HelloWorld
+  },
+  data () {
+    return {
+      //
+    }
+  }
 }
 </script>
-
-<style>
-body {
-    margin: 0;
-}
-
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: lightgray;
-  color: black;
-  width: 100vw;
-  height: 100vh;
-  padding-top: 100px;
-}
-</style>

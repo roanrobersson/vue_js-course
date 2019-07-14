@@ -1,11 +1,10 @@
 <template>
-    <div class='list'>
-        <ol>
+    <div class='list-container'>
+        <ol class="list">
             <li class="list-item"
             v-for="pais in paises" 
             :key="pais.id"
-            @click="listItemClick"
-            >
+            @click="listItemClick">
                 {{pais.nome}}
             </li>
         </ol>
@@ -34,15 +33,25 @@ export default {
 }
 </script>
 
-<style>
-.list {
+<style scoped>
+.list-container {
     background-color: lightcoral;
     border: 2px solid black;
 }
+
+.list {
+    padding: 0;
+    margin: 0;
+    overflow: scroll;
+}
+
 .list-item {
     list-style-type: none;
-    border: 1px solid black;
+    border-bottom: 1px solid black;
     padding: 0;
+}
 
+.list-item:hover {
+    background-color: red;
 }
 </style>
