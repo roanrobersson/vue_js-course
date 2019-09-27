@@ -17,19 +17,26 @@ export default {
 
     data() {
         return {
-            //Somente para teste...
-            total: 10,
-            done: 5,
+			tasks: [],
         }
 
     },
 
     computed: {
-        progress() { return Math.round( 100 / this.total * this.done) }
-    },
-
+		progress() { return Math.round( 100 / this.tasks.length * this.tasksDone) },
+		tasksDone() {
+				//
+		}
+	},
+	
     methods: {
-        createNewTask(e) { console.log(e); },
+        createNewTask(taskTitle) { 
+			this.tasks.push({
+				title: taskTitle,
+				situation: 'done',
+			});
+			//console.log(this.tasks); 
+		},
     }
 }
 </script>
