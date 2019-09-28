@@ -1,12 +1,28 @@
 <template>
-    <div class="task done">
-        <span class="task-delete done">x</span>
-        <span class="task-title done">Cortar cabelo</span>
+    <div class="task" :class="taskClass" @click="$emit('task-toggle', task)">
+        <span class="task-delete" 
+            :class="taskClass"
+            @click.stop="$emit('task-delete', task)">
+            x
+        </span>
+        <span class="task-title" :class="taskClass">{{ task.title }}</span>
     </div>
 </template>
 
 <script>
 export default {
+    props: {
+        task: {
+            type: Object,
+            required: true,
+        }
+    },
+
+    computed: {
+        taskClass() {
+            return this.task.pending ? 'pending' : 'done';
+        },
+    }
 
 }
 </script>

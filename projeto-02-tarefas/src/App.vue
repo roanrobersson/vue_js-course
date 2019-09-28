@@ -3,7 +3,10 @@
 		<h1>Tarefas</h1>
         <TaskProgress :progress="progress"/>
         <NewTask @create-new-task="createNewTask($event)"/>
-        <TaskGrid />
+        <TaskGrid :tasks="tasks" 
+            @task-delete="taskDelete($event)"
+            @task-toggle="taskToggle($event)"
+        />
 	</div>
 </template>
 
@@ -23,20 +26,30 @@ export default {
     },
 
     computed: {
-		progress() { return Math.round( 100 / this.tasks.length * this.tasksDone) },
-		tasksDone() {
-				//
-		}
+        tasksDoneCount() { return this.tasks.filter(arr => !arr.pending).length },
+		progress() { 
+            return this.tasks.length === 0 ? 0 : Math.round( 100 / this.tasks.length * this.tasksDoneCount);
+        },
+		
 	},
 	
     methods: {
         createNewTask(taskTitle) { 
-			this.tasks.push({
-				title: taskTitle,
-				situation: 'done',
-			});
-			//console.log(this.tasks); 
-		},
+            if ( this.tasks.find(arr => arr.title === taskTitle) === undefined) {
+                this.tasks.push({
+                    title: taskTitle,
+                    pending: true,
+                })
+            }
+        },
+        
+        taskDelete(i) {
+            this.tasks.splice(i, 1);
+        },
+
+        taskToggle(i) {
+            this.tasks[i].pending = !this.tasks[i].pending;
+        },
     }
 }
 </script>

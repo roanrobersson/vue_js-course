@@ -15,8 +15,10 @@ export default {
 
     methods: {
         newTask () {
-            this.$emit('create-new-task', this.title);
-            this.title = "";
+            if ( this.title != ''){
+                this.$emit('create-new-task', this.title);
+                this.title = "";
+            }
         }
     }
 }
