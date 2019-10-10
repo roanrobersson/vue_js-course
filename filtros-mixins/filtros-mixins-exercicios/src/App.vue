@@ -1,44 +1,36 @@
 <template>
 	<div id="app">
 		<h1>Filtros & Mixins</h1>
-        <hr>
-        <p>{{ cpf | cpfFilter | invertFilter }}</p>
-        <input type="text" :value="cpf | cpfFilter">
-        <hr>
-        <Frutas />
-        <hr>
-        <div>
-            <ul>
-                <li v-for="fruta in frutas" :key="fruta">{{ fruta }}</li>
-            </ul>
-            <input type="text" v-model="fruta" @keydown.enter="add">
-        </div>
+		<hr>
+		<p>CPF: {{ cpfDoAluno | cpf }}</p>
+		<p>CPF Invertido: {{ cpfDoAluno | cpf | inverter }}</p>
+		<input type="text" :value="cpfDoAluno | cpf">
+		<Frutas />
+		<Frutas />
 	</div>
 </template>
 
 <script>
-import frutasMixin from './frutasMixin.js'
-import Frutas from './Frutas.vue'
+import frutasMixin from './frutasMixin.js';
+import Frutas from './Frutas.vue';
 
 export default {
-    components: { Frutas },
-    mixins: [ frutasMixin ],
-    filters: {
-        cpfFilter(valor) {
-            const arr = valor.split('');
-            arr.splice(3, 0, '.');
-            arr.splice(7, 0, '.');
-            arr.splice(11, 0, '-');
-            return arr.join('');
-        }
-    },
-    data() {
-        return {
-            cpf: '65448965421',
-            fruta: '',
-            frutas: ['banana', 'maça', 'laranja'],
-        }
-    },
+	components: { Frutas },
+	mixins: [ frutasMixin ],
+	filters: {
+		cpf(valor) {
+			const arr = valor.split('');
+			arr.splice(3, 0, '.');
+			arr.splice(7, 0, '.');
+			arr.splice(11, 0, '-');
+			return arr.join('');
+		}
+	},
+	data() {
+		return {
+			cpfDoAluno: '03793739040',
+		}
+	},
 }
 </script>
 
@@ -54,6 +46,6 @@ export default {
 }
 
 input {
-    font-size: 2.5rem;
+	font-size: 2.5rem;
 }
 </style>
