@@ -1,6 +1,11 @@
 <template>
 	<div id="app">
 		<h1>Filtros & Mixins (Desafio)</h1>
+        <p>Exercício 1 => {{ str1 | virgulas }}</p>
+        <p>Exercício 2 => {{ str2 | contar }}</p>
+        <p>Exercício 3.0 => {{ strComputada1 }}</p>
+        <p>Exercício 3.1 => {{ strComputada2 }}</p>
+
 		<!-- Exercício 1 -->
 		<!-- Construir um filtro local que troca espaços por vírgula -->
 		
@@ -18,8 +23,23 @@
 </template>
 
 <script>
+import mixinComputadas from '@/mixinComputadas.js';
+
 export default {
-	
+    mixins: [mixinComputadas],
+
+	data() {
+        return {
+            str1: 'Testando um dois três.',
+            str2: 'Testando um dois três.'
+        }
+    },
+    filters: {
+        virgulas: function(value) {
+            return value.replace(/ /g, ', ');
+        },
+    },
+
 }
 </script>
 
