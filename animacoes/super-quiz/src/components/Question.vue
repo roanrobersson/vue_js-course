@@ -1,12 +1,25 @@
 <template>
     <div class="question">
-        
+        {{ question.text }}
+        <ul class="answers">
+            <li v-for="(answer, i) in question.answers" 
+                :key="i" 
+                @click="$emit('answerClick', i)">
+                <span class="number">{{ i + 1 }}</span>
+                <span class="text">{{ answer.text }}</span>
+            </li>
+        </ul> 
     </div>
 </template>
 
 <script>
 export default {
-    
+    props: {
+        question: {
+            type: Object,
+            required: true,
+        }
+    },
 }
 </script>
 
@@ -37,7 +50,6 @@ export default {
         background-color: #89c454;
         border-radius: 8px;
         width: 40%;
-
         display: flex;
     }
 
