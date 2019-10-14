@@ -47,16 +47,15 @@ export default {
             this.$http.post('usuarios.json', this.usuario)
                 .then(
                     resp => {
-                        if (status === "OK")
                         this.usuario.nome = '';
                         this.usuario.email = '';
-            })
+            }, null)
         },
         obterUsuarios() {
             this.$http.get('usuarios.json')
                 .then(res => {
                     this.usuarios = res.data
-                })
+                }, null)
         }
     }
     // created () {
