@@ -1,7 +1,13 @@
 <template>
 	<div id="app" class="container">
 		<h1>HTTP com Axios</h1>
+        <b-alert show dismisseble v-for="mensagem in mensagens"
+            :key="mensagem.texto"
+            :variant="mensagem.tipo">
+            {{ mensagem.texto }}
+            </b-alert>
         <b-card>
+            <b-card-text class="text-center d-block bg-warning rounded" v-if="idUsuarioSelecionado">Editando usuário de ID:  &nbsp;&nbsp;&nbsp;{{ idUsuarioSelecionado }}</b-card-text><br>
             <b-form-group label="Nome:">
                 <b-form-input type="text" size="lg"
                     v-model="usuario.nome"
@@ -25,8 +31,19 @@
             <b-list-group-item v-for="(usuario, id) in usuarios" :key="id">
                 <strong>Nome: </strong> {{ usuario.nome }}<br>
                 <strong>E-mail: </strong> {{ usuario.email }}<br>
+                <strong>ID: </strong> {{ id }}<br>
+                <b-button variant="warning" size="lg" @click="carregar(id)">
+                    Editar
+                </b-button>
+                <b-button variant="danger" size="lg" class="ml-2" @click="excluir(id)">
+                    Excluír
+                </b-button>
             </b-list-group-item>
         </b-list-group>
+
+        <div id="spinner-background" v-if="inLoading">
+            <b-spinner variant="light" label="Loading..."  style="width: 5rem; height: 5rem;">fdf</b-spinner>
+        </div>
 	</div>
 </template>
 
@@ -35,7 +52,10 @@
 export default {
     data() {
         return {
+            inLoading: false,
+            mensagens: [],
             usuarios: [],
+            idUsuarioSelecionado: null,
             usuario: {
                 nome: '',
                 email: '',
@@ -43,27 +63,81 @@ export default {
         }
     },
     methods: {
+        limpar() {
+            this.usuario.nome = ''
+            this.usuario.email = ''
+            this.idUsuarioSelecionado = null
+            this.mensagens = []
+        },
+        carregar(id) {
+            this.idUsuarioSelecionado = id
+            this.usuario = { ...this.usuarios[id] }
+        },
+        excluir(id) {
+            this.inLoading = true;
+            this.$http.delete(`/usuarios/${id}.json`)
+                .then( () => {
+                    this.limpar() 
+                    this.obterUsuarios()
+                    })
+                .catch( () => {
+                    this.mensagens.push({
+                        texto: 'Problema aoexcluir!',
+                        tipo: 'danger'
+                    })
+                })
+                .then( () => {
+                    this.inLoading = false;
+                })
+        },
         salvar() {
-            this.$http.post('usuarios.json', this.usuario)
-                .then(
-                    resp => {
-                        this.usuario.nome = '';
-                        this.usuario.email = '';
-            }, null)
+            const metodo = this.idUsuarioSelecionado ? 'patch' : 'post'
+            const finalUrl = this.idUsuarioSelecionado ? `/${this.idUsuarioSelecionado}.json` : '.json'
+            let promiseResponse
+            this.inLoading = true
+
+            this.$http({
+                method: metodo,
+                url: `/usuarios${finalUrl}`,
+                data: this.usuario
+            })
+                .then( () => {
+                    this.limpar()
+                    this.obterUsuarios()
+                    this.mensagens.push({
+                        texto: 'Operação realizada com sucesso!',
+                        tipo: 'success'
+                    })
+                })
+                .catch( () => {
+                    this.mensagens.push({
+                        texto: 'Problema ao salvar!',
+                        tipo: 'danger'
+                    })
+                })
+                .then( () => {
+                    this.inLoading = false;
+                })
         },
         obterUsuarios() {
+            this.limpar()
+            this.inLoading = true
             this.$http.get('usuarios.json')
                 .then(res => {
                     this.usuarios = res.data
-                }, null)
+                })
+                .catch( () => {
+                    this.mensagens.push({
+                        texto: 'Problema ao obter usuários!',
+                        tipo: 'danger'
+                    })
+                })
+                .then( () => {
+                    this.inLoading = false;
+                }) 
         }
     }
-    // created () {
-    //     this.$http.post('usuarios.json', {
-    //         nome: 'Maria',
-    //         email: 'maria_maria@gmail.com'
-    //     }).then(res => console.log(res));
-    // }
+
 }
 </script>
 
@@ -80,4 +154,17 @@ export default {
 	text-align: center;
 	margin: 50px;
 }
+
+#spinner-background{
+    position: fixed !important;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(128, 128, 128, 0.685);
+}
+
 </style>

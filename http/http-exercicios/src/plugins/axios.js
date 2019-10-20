@@ -8,9 +8,9 @@ Vue.use({
         })
 
         Vue.prototype.$http.interceptors.request.use(config => {
-            console.log(config.method)
+            //console.log(config.method)
             return config
-        }, error => Promisse.reject(error))
+        }, error => Promise.reject(error))
 
         Vue.prototype.$http.interceptors.response.use( res => {
             // const array = []
@@ -20,7 +20,7 @@ Vue.use({
 
             // res.data = array
             return res
-        }, error => Promisse.reject(error))
+        }, error => Promise.reject(error))
     }
     
 })
