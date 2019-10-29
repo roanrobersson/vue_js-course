@@ -3,15 +3,19 @@
 		<h1>Rotas com VueRouter</h1>
         <Menu />
         <router-view name="menu"/>
-        <router-view />
+        <transition
+            mode="out-in"
+            enter-active-class="animated rubberBand"
+            leave-active-class="animated rollOut">
+            <router-view />
+        </transition>
+        <router-view name="menuInferior"/>
 	</div>
 </template>
 
 <script>
-import Menu from '@/components/template/Menu'
-
 export default {
-    components: { Menu },
+
 }
 </script>
 
